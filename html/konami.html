@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
+    <title>Konami Code</title>
+    <style>
+        body {
+            background-image: url("https://theconservativehistoricalreview.files.wordpress.com/2019/01/game-over.png?w=1920");
+            background-size: cover;
+        }
+        .contra {
+            background-image: url("/img/contra.jpg");
+            background-size: cover;
+        }
+        .pacman {
+            background-image: url("/img/pac-man-wallpaper copy.png");
+            background-size: cover;
+        }
+
+    </style>
+</head>
+<body>
+<!-----jquery script--->
+<script
+        src="https://code.jquery.com/jquery-2.2.4.js"
+        integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous">
+</script>
+<!-----cheat code---->
+<script>
+    "use strict";
+
+    // variable to establish the keys in the sequence //
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down',
+        65: 'a',
+        66: 'b'
+
+    };
+    //pacman cheat code: up, up, up, down, down, down, left, right, left, right, left//
+    var pacmanCode  = ['up', 'up', 'up','down', 'down', 'down', 'left', 'right', 'left', 'right', 'left'];
+    var pacmanPosition = 0;
+    // KONAMI sequence: up, up, down, down, left, right, left, right, b, a //
+    var konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+    // keeps track of the users 'position' so far //
+    var konamiPosition = 0;
+    // add event listener //
+    $(document).keyup(function(event){
+        console.log(event.keyCode);
+
+        var key = allowedKeys[event.keyCode];
+
+        var komaniKey = konamiCode[konamiPosition]
+        var pacmanKey = pacmanCode[pacmanPosition]
+
+        if(key === komaniKey || key === pacmanKey) {
+            konamiPosition++;
+            pacmanPosition++;
+
+            if (konamiPosition == konamiCode.length){
+                activateKonamiCheats();
+                $('body').addClass('contra')
+                konamiPosition = 0;
+            } else if (key === pacmanKey) {
+                pacmanPosition++;
+                if (pacmanPosition == pacmanCode.length) {
+                    activatePacmanCheats();
+                    $('body').addClass('pacman')
+                    pacmanPosition = 0;
+                }
+            }
+        } else {
+            konamiPosition = 0;
+            pacmanPosition = 0;
+        }
+    });
+    function activateKonamiCheats(){
+        var konamiAudio = new Audio('/audio/contra-theme2.mp3');
+        konamiAudio.play();
+    }
+    function activatePacmanCheats() {
+        var pacmanAudio = new Audio('/audio/pacman-original-theme2.mp3');
+        pacmanAudio.play();
+    }
+</script>
+
+</body>
+</html>
