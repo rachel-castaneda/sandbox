@@ -20,7 +20,6 @@
             background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/431ef492-2ebe-4914-96f2-90846b283825/dbdttsz-b3ef0275-136b-421e-8abf-7e693af998fe.png/v1/fill/w_900,h_507,strp/pac_man_wallpaper_by_tempest790_dbdttsz-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTA3IiwicGF0aCI6IlwvZlwvNDMxZWY0OTItMmViZS00OTE0LTk2ZjItOTA4NDZiMjgzODI1XC9kYmR0dHN6LWIzZWYwMjc1LTEzNmItNDIxZS04YWJmLTdlNjkzYWY5OThmZS5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bPgfc7P7HDXe7ntQa35ZXHpexphHwEAsDCKRKgLLchQ");
             background-size: cover;
         }
-
     </style>
 </head>
 <body>
@@ -33,7 +32,6 @@
 <!-----cheat code---->
 <script>
     "use strict";
-
     // variable to establish the keys in the sequence //
     var allowedKeys = {
         37: 'left',
@@ -42,7 +40,6 @@
         40: 'down',
         65: 'a',
         66: 'b'
-
     };
     //pacman cheat code: up, up, up, down, down, down, left, right, left, right, left//
     var pacmanCode  = ['up', 'up', 'up','down', 'down', 'down', 'left', 'right', 'left', 'right', 'left'];
@@ -54,16 +51,12 @@
     // add event listener //
     $(document).keyup(function(event){
         console.log(event.keyCode);
-
         var key = allowedKeys[event.keyCode];
-
         var komaniKey = konamiCode[konamiPosition]
         var pacmanKey = pacmanCode[pacmanPosition]
-
         if(key === komaniKey || key === pacmanKey) {
             konamiPosition++;
             pacmanPosition++;
-
             if (konamiPosition == konamiCode.length){
                 activateKonamiCheats();
                 $('body').addClass('contra')
@@ -85,6 +78,27 @@
         var konamiAudio = new Audio('../audio/contra-theme.mp3');
         konamiAudio.play();
     }
+    $(document).keyup(function(event){
+        console.log(event.keyCode);
+        var key = allowedKeys[event.keyCode];
+
+        var pacmanKey = pacmanCode[pacmanPosition]
+        if(key === pacmanKey) {
+
+            pacmanPosition++;
+
+            if (key === pacmanKey) {
+                pacmanPosition++;
+                if (pacmanPosition == pacmanCode.length) {
+                    activatePacmanCheats();
+                    $('body').addClass('pacman')
+                    pacmanPosition = 0;
+                }
+            }
+        } else {
+            pacmanPosition = 0;
+        }
+    });
     function activatePacmanCheats() {
         var pacmanAudio = new Audio('../audio/pacman-theme.mp3');
         pacmanAudio.play();
