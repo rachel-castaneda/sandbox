@@ -49,29 +49,20 @@
     // keeps track of the users 'position' so far //
     var konamiPosition = 0;
     // add event listener //
-    $(document).keyup(function(event){
+    $(document).keyup(function(event) {
         console.log(event.keyCode);
         var key = allowedKeys[event.keyCode];
         var komaniKey = konamiCode[konamiPosition]
-        var pacmanKey = pacmanCode[pacmanPosition]
-        if(key === komaniKey || key === pacmanKey) {
+
+        if (key === komaniKey) {
             konamiPosition++;
-            pacmanPosition++;
-            if (konamiPosition == konamiCode.length){
+            if (konamiPosition == konamiCode.length) {
                 activateKonamiCheats();
                 $('body').addClass('contra')
                 konamiPosition = 0;
-            } else if (key === pacmanKey) {
-                pacmanPosition++;
-                if (pacmanPosition == pacmanCode.length) {
-                    activatePacmanCheats();
-                    $('body').addClass('pacman')
-                    pacmanPosition = 0;
-                }
+            } else {
+                konamiPosition = 0;
             }
-        } else {
-            konamiPosition = 0;
-            pacmanPosition = 0;
         }
     });
     function activateKonamiCheats(){
