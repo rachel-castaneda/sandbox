@@ -52,17 +52,21 @@
     $(document).keyup(function(event) {
         console.log(event.keyCode);
         var key = allowedKeys[event.keyCode];
-        var komaniKey = konamiCode[konamiPosition]
+        var konamiKey = konamiCode[konamiPosition]
+        var pacmanKey = pacmanCode[pacmanPosition]
 
-        if (key === komaniKey) {
+        if (key !== konamiKey && key !== pacmanKey) {
+            konamiPosition = 0;
+            pacmanPosition = 0;
+        } else if (key === konamiKey) {
             konamiPosition++;
             if (konamiPosition == konamiCode.length) {
                 activateKonamiCheats();
                 $('body').addClass('contra')
                 konamiPosition = 0;
-            } else {
-                konamiPosition = 0;
             }
+        } else if (key === pacmanKey) {
+            pacmanPosition
         }
     });
     function activateKonamiCheats(){
@@ -73,7 +77,7 @@
         console.log(event.keyCode);
         var key = allowedKeys[event.keyCode];
 
-        var pacmanKey = pacmanCode[pacmanPosition]
+
         if(key === pacmanKey) {
 
             pacmanPosition++;
